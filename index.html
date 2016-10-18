@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пятнашки</title>
+    <style type="text/css">
+        table { 
+            border-collapse: collapse;
+            font-family: sans-serif;
+        }
+        h1 {
+            text-align: center;
+            color: #777777;
+            font-family: Trebuchet MS;
+        }
+        #container{
+            border-radius: 4px;
+            box-shadow: 0px 2px 6px 1px rgba(0, 0, 0, 0.2);
+            border:4px solid rgba(0, 0, 0, 0.2);
+            margin: 50px auto;
+            min-height: 450px;
+            width: 448px;
+            padding:10px;
+            background-color: rgba(160, 219, 241, 0.5);
+        }
+        .square{
+            position: relative;
+            font-family:Trebuchet MS;
+            font-size:50px;
+            font-weight:bold;
+            font-style:normal;
+            text-shadow: 1px 1px 1px  rgba(255, 255, 255, 1);
+            color:#664513;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 3px;
+            padding: 4px;
+            background-color: rgba(253, 182, 60, 0.6);
+            box-shadow: 0px 2px 1px 0px rgba(182, 127, 32, 1);  
+        }
+        .square:hover {
+            cursor:pointer;
+            background-color: rgba(253, 182, 60, 0.4); 
+        }
+        .control-panel {
+            text-align: center;
+        }
+        .play_again,
+        .start {
+            position: relative;
+            border: 1px solid #dcdcdc;
+            display: inline-block;
+            color: #777777;
+            font-family: Trebuchet MS;
+            font-size: 26px;
+            font-weight: bold;
+            font-style: normal;            
+            text-align: center;
+            text-shadow: 1px 1px 0px #ffffff;
+            padding: 12px 22px;
+            background: #eee;
+            border-radius: 4px;
+            top: 50px;
+        }
+        .start {
+            background: #00b100;
+            color: white;
+            text-shadow: none;
+            top: 0;
+        }
+        .play_again:hover,
+        .start:hover {
+            cursor: pointer;
+        }
+        .overlay {
+            display: none;
+            top: 0;
+            left: 0;
+            position: fixed;
+            background-color: #000;
+            opacity: 0.74;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+        .overlay-show {
+            display: block;
+        }
+        .pop-up {
+            font-family: Trebuchet MS, sans-serif;
+            position: fixed;
+            background-color: #fff;
+            display: none;
+            top: 20%;
+            left: 50%;
+            margin-left: -312.5px;
+            width: 625px;
+            height: 300px;
+            border: 5px solid rgba(253, 182, 60, 0.6);
+            border-radius: 4px;
+            opacity: 1.0;
+            z-index: 10000;
+            text-align: center;
+            padding: 15px 20px;
+        }
+        .pop-up-show {
+            display: block;
+        }
+        @-webkit-keyframes bouncestart {
+          0%   { opacity: 0; }
+          100% { opacity: 1; }
+        }
+        @-moz-keyframes bouncestart {
+          0%   { opacity: 0; }
+          100% { opacity: 1; }
+        }
+        @-o-keyframes bouncestart {
+          0%   { opacity: 0; }
+          100% { opacity: 1; }
+        }
+        @keyframes bouncestart {
+          0%   { opacity: 0; }
+          100% { opacity: 1; }
+        }    
+        .slide-effect-on {
+          -webkit-animation: bouncestart 2s;
+          -moz-animation:    bouncestart 2s;
+          -o-animation:      bouncestart 2s;
+          animation:         bouncestart 2s;
+        }
+        .form-title{
+            font-size: 35px;
+        } 
+        .form-title span:first-child {
+            font-size: 50px;
+        }         
+    </style>
+</head>
+<body>
+    
+    <div id="container">
+        <table cellpadding="2">
+        <h1>Пятнашки</h1>
+            <tr>
+                <td class="cell i1">
+                    <div class="square">
+                        1
+                    </div>
+                </td>
+                <td class="cell i2">
+                    <div class="square">
+                        2
+                    </div>
+                </td>
+                <td class="cell i3">
+                    <div class="square">
+                        3
+                    </div>
+                </td>
+                <td class="cell i3">
+                    <div class="square">
+                        4
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="cell i4">
+                    <div class="square">
+                        5
+                    </div>
+                </td>
+                <td class="cell i5">
+                    <div class="square">
+                        6
+                    </div>
+                </td>
+                <td class="cell i6">
+                    <div class="square">
+                        7
+                    </div>
+                </td>
+                <td class="cell i7">
+                    <div class="square">
+                        8
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="cell i9">
+                    <div class="square">
+                        9
+                    </div>
+                </td>
+                <td class="cell i10">
+                    <div class="square">
+                        10
+                    </div>
+                </td>
+                <td class="cell i11">
+                    <div class="square">
+                        11
+                    </div>
+                </td>
+                <td class="cell i12">
+                    <div class="square">
+                        12
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="cell i13">
+                    <div class="square">
+                        13
+                    </div>
+                </td>
+                <td class="cell i14">
+                    <div class="square">
+                        14
+                    </div>
+                </td>
+                <td class="cell i15">
+                    <div class="square">
+                        15
+                    </div>
+                </td>
+                <td class="cell i16"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="pop-up">
+      <div class="form-wrap">
+        <div class="form-title">
+            <span>Поздравляем!</span>
+            <br/>
+            <span>Вы выиграли!</span>
+        </div>
+      </div>
+      <div class="new-game-wrap">
+        <a href="index.html" class="new-game-a">
+          <div class="play_again">Начать заново!</div>
+        </a>
+      </div>
+    </div>    
+    <div class="overlay"></div>
+    <div class="control-panel">
+        <button class="start">Обновить</button>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
