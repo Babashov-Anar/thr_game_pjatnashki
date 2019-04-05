@@ -143,7 +143,7 @@
     
     <div id="container">
         <table cellpadding="2">
-        <h1>Пятнашки</h1>
+        <h1>Square</h1>
             <tr>
                 <td class="cell i1">
                     <div class="square">
@@ -233,21 +233,110 @@
     <div class="pop-up">
       <div class="form-wrap">
         <div class="form-title">
-            <span>Поздравляем!</span>
+            <span>Congratulations!</span>
             <br/>
-            <span>Вы выиграли!</span>
+            <span>You won!</span>
         </div>
       </div>
       <div class="new-game-wrap">
         <a href="index.html" class="new-game-a">
-          <div class="play_again">Начать заново!</div>
+          <div class="play_again">Restart!</div>
         </a>
       </div>
     </div>    
     <div class="overlay"></div>
     <div class="control-panel">
-        <button class="start">Обновить</button>
+        <button class="start">Update!</button>
     </div>
-    <script src="js/script.js"></script>
+    
+<script>
+    var StartGame = document.querySelector(".start"),
+    cells = document.getElementsByClassName('cell'),
+    items = document.getElementsByClassName('square'),
+    wrap = document.body.childNodes[1];
+    itemsArr = [],
+    cellsArr = [],
+    popUp = document.querySelector(".pop-up"),
+    wrapWindow = document.querySelector(".overlay");
+
+    function objectToArray(obj, arr) {
+        for (var data in obj) {
+            if (!obj.hasOwnProperty(data)) continue
+            arr.push(obj[data]);
+        }
+    }
+
+    function shuffle(arr) {
+        arr.sort(function() {
+            return Math.random() - 0.5;
+        })
+        for (var i = 0; i < itemsArr.length; i++) {
+            cellsArr[i].appendChild(itemsArr[i]);
+        }
+    }
+
+    StartGame.addEventListener("click", function(event) {
+        event.preventDefault();
+        shuffle(itemsArr);
+    });
+
+    objectToArray(cells, cellsArr);
+    objectToArray(items, itemsArr);
+    var test = [-1, 1, -4, 4];
+
+    function getIndex(elem, arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (elem == arr[i]) {
+                return i;
+            }
+        }
+        return;
+    }
+
+    function check(arrCells) {
+        var flag = true;
+        for (var i = 1; i < arrCells.length; i++) {
+            if (!arrCells[i].children[0]) continue;
+            if (i + 1 != arrCells[i].children[0].textContent) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            popUp.classList.add("pop-up-show");
+            popUp.classList.add("slide-effect-on")
+            wrapWindow.classList.add("overlay-show");
+        }
+    }
+
+    wrap.addEventListener("click", function(event) {
+        event.preventDefault();
+        var target = event.target;
+        if (target.classList.contains("square")) {
+            var cell = target.parentNode;
+            var ind = getIndex(cell, cellsArr);
+            if (!((ind + 1) % 4)) {
+                test = [-1, 4, -4];
+            } else if (!((ind) % 4)) {
+                test = [1, 4, -4];
+            } else {
+                test = [-1, 1, -4, 4];
+            }
+            var start = 0;
+            var end = 15;
+            for (var i = 0; i < test.length; i++) {
+                var newCoord = ind + test[i];
+                if (newCoord >= start && newCoord <= end) {
+                    if (!cellsArr[newCoord].children[0]) {
+                        console.log(cellsArr[newCoord].children[0]);
+                        cellsArr[newCoord].appendChild(cellsArr[ind].children[
+                            0]);
+                        check(cellsArr);
+                    }
+                }
+            }
+        }
+    });
+</script>
 </body>
 </html>
